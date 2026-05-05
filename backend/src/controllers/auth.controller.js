@@ -3,9 +3,24 @@ import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
 import User from "../models/user.model.js";
 
+import mongoose from "mongoose";
+
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+const checkDbConnection = (res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ 
+      message: "Database connection is not established. This is likely an IP whitelist issue in MongoDB Atlas.",
+      error: "DB_CONNECTION_ERROR"
+    });
+  }
+  return null;
+};
+
 export const signup = async (req, res) => {
+  const dbError = checkDbConnection(res);
+  if (dbError) return dbError;
+
   try {
     const { name, email, password } = req.body;
     const normalizedEmail = email.toLowerCase();
@@ -33,6 +48,9 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  const dbError = checkDbConnection(res);
+  if (dbError) return dbError;
+
   try {
     const { email, password } = req.body;
     const normalizedEmail = email.toLowerCase();
@@ -61,6 +79,9 @@ export const login = async (req, res) => {
 };
 
 export const googleAuth = async (req, res) => {
+  const dbError = checkDbConnection(res);
+  if (dbError) return dbError;
+
   try {
     const { credential } = req.body;
     const ticket = await client.verifyIdToken({

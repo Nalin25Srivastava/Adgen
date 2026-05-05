@@ -15,7 +15,7 @@ export const enhancePromptController = async (req, res) => {
       User Message: ${prompt}
     `.trim();
 
-    const enhancedPrompt = await enhancePrompt(fullContext);
+    const enhancedPrompt = await enhancePrompt(req.body);
     res.json({ enhancedPrompt });
   } catch (err) {
     console.error("🔥 Error enhancing prompt:", err.message);
@@ -40,13 +40,13 @@ export const generateImage = async (req, res) => {
       User Message: ${prompt}
     `.trim();
 
-    console.log(`🧠 Ad Prompt received with context:`, fullContext);
+    console.log(`🧠 Ad Prompt received for ${productName || "Product"}`);
 
-    const enhancedPrompt = await enhancePrompt(fullContext);
+    const enhancedPrompt = await enhancePrompt(req.body);
     
     console.log("✨ Enhanced Prompt:", enhancedPrompt);
 
-    const imageUrl = await createImage(enhancedPrompt, model);
+    const imageUrl = await createImage(enhancedPrompt, model, req.body.aspect_ratio);
     console.log("🖼️ Image generated successfully!");
 
     // Save to Database

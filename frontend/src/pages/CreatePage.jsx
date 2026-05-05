@@ -309,7 +309,9 @@ export default function CreatePage() {
       console.error("Error generating ad:", err);
       clearInterval(interval);
       setLoading(false);
-      alert("Ad generation failed. This might be due to API quota limits or an invalid key. Please check your .env settings and try again.");
+      
+      const errorMsg = err.response?.data?.details || err.response?.data?.error || err.message;
+      alert(`Ad generation failed: ${errorMsg}\n\nPlease check your internet connection or try again later.`);
     }
   };
 

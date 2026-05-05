@@ -1,8 +1,7 @@
 import { MongoClient } from 'mongodb';
 
-const localUri = 'mongodb://localhost:27017';
-// Direct connection string with verified shard hostnames
-const atlasUri = 'mongodb://ns300142_db_user:ns123%40123@ac-wgcqds8-shard-00-00.dpdkhhz.mongodb.net:27017,ac-wgcqds8-shard-00-01.dpdkhhz.mongodb.net:27017,ac-wgcqds8-shard-00-02.dpdkhhz.mongodb.net:27017/advantage-gen?ssl=true&authSource=admin&retryWrites=true&w=majority&appName=Cluster0';
+const localUri = 'mongodb+srv://ns300142_db_user:ns123%40123@cluster0.dpdkhhz.mongodb.net/advantage-gen?retryWrites=true&w=majority&appName=Cluster0';
+const atlasUri = 'mongodb+srv://ns300142:ns300142@mohit.z0lica1.mongodb.net/advantage-gen?retryWrites=true&w=majority&appName=Mohit';
 const dbName = 'advantage-gen';
 
 async function migrate() {

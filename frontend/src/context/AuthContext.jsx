@@ -26,7 +26,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isAuthenticated", "true");
     } catch (err) {
-      throw err.response?.data?.message || "Login failed";
+      console.error("Login Error:", err);
+      throw err.response?.data?.message || "Login failed. Please check your connection.";
     }
   };
 
@@ -40,7 +41,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isAuthenticated", "true");
     } catch (err) {
-      throw err.response?.data?.message || "Google login failed";
+      console.error("Google Login Error:", err);
+      throw err.response?.data?.message || "Google login failed. Check your network or Google account.";
     }
   };
 
@@ -54,7 +56,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isAuthenticated", "true");
     } catch (err) {
-      throw err.response?.data?.message || "Signup failed";
+      console.error("Signup Error:", err);
+      throw err.response?.data?.message || "Signup failed. Email may already be in use.";
     }
   };
 
