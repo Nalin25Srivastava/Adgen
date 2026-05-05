@@ -1,0 +1,5 @@
+/* App styles are managed in index.css and component files */
+.App {
+  width: 100%;
+  min-height: 100vh;
+}
